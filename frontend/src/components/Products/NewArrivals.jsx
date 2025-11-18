@@ -104,6 +104,24 @@ const NewArrivals = () => {
     },
   ]
 
+  // function to handle mouse down
+
+  const handleMouseDown = (e)=>{
+    setisDragging(true);
+    setstartX(e.pageX -  scrollRef.current.offsetLeft);
+    setscrollLeft(scrollRef.current.leftScroll);
+  }
+  const handleMouseMove = (e)=>{
+    if (!isDragging) return;
+    const x  = e.pageX - scrollRef.current.scrollLeft;
+    const walk = x - startX;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  }
+
+  const handleMouseUpOrLeave = () =>{
+    setisDragging(false)
+  }
+
 //  Function for update scroll button
   const updateScrollButtons = ()=>{
     // geting the detials of the content of scroll as we set the ref = scrollRef
@@ -140,11 +158,12 @@ useEffect(()=>{
   const container = scrollRef.current;
   if(container){
     container.addEventListener("scroll",updateScrollButtons);
-    // updateScrollButtons();
+    updateScrollButtons();
+    return () => container.removeEventListener("scroll",updateScrollButtons)
   }
-})
+},[])
   return (
-    <section>
+    <section className='py-16 px-4 lg:px-0'>
       <div className="container mx-auto text-center mb-10 relative">
         <h2 className="text-3xl font-bold mb-4 ">
           Explore new arivals
@@ -157,10 +176,10 @@ useEffect(()=>{
         {/* Scroll buttons */}
         <div className="absolute right-0 bottom-[-30px] flex space-x-2">
           {/* Just check the syntax how functions are passed as arguments */}
-          <button onClick={()=>scroll("left")} disabled={!canScrollLeft} className={`p-2 rounded border ${canScrollLeft ? " bg-white text-black":"bg-gray-200"}`}>
+          <button onClick={()=>scroll("left")} disabled={!canScrollLeft} className={`p-2 rounded border ${canScrollLeft ? " bg-white text-black":"bg-gray-200 cursor-not-allowed"}`}>
             <FiChevronsLeft className='text-2xl'/>
           </button>
-          <button className='p-2 rounded border bg-white text-black'>
+          <button onClick={()=>scroll("Right")} disabled={!canScrollRight} className={`p-2 rounded border ${canScrollRight ? " bg-white text-black":"bg-gray-200 cursor-not-allowed"}`}>
             <FiChevronsRight className='text-2xl'/>            
           </button>
 
@@ -168,11 +187,17 @@ useEffect(()=>{
       </div>
 
       {/* Scroll content */}
-      <div ref={scrollRef} className="container mx-auto overflow-x-scroll flex space-x-6 relative">
+      <div ref={scrollRef} className={`container mx-auto overflow-x-scroll flex space-x-6 relative ${isDragging ? "cursor-grabbing": "cursor-grab" }` }
+      onMouseDown = {handleMouseDown}
+      onMouseUp = {handleMouseUpOrLeave}
+      onMouseMove = {handleMouseMove}
+      onMouseLeave = {handleMouseUpOrLeave}
+      >
+        
         {newArrivals.map((product)=>(
           <div key={product._id} className='min-w-[100%] sm:min-w-[50%] lg:min-w-[30%] relative'>
             <img src={product.images[0]?.url} alt={product.images[0]?.altText || product.name }
-            className='w-full h-[500px] object-cover rounded-2xl'/>
+            className='w-full h-[500px] object-cover rounded-2xl' draggable ={false}/>
             <div className='absolute bottom-0 left-0 right-0 bg-opacity-50 backdrop-blur-md text-white
               p-4 rounded-b-lg'>
                 <Link to ={`/products/${product._id}`} className='block'>
