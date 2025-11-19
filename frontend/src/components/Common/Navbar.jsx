@@ -20,7 +20,7 @@ const Navbar = () => {
         </div>
         {/** Ceneter Navigation Links */}
         <div className="hidden md:flex space-x-6">
-            <Link to="#" className='text-gray-700
+            <Link to="/collections/all" className='text-gray-700
              hover:text-black text-sm font-medium uppercase'> Men</Link>
             <Link to="#" className='text-gray-700
              hover:text-black text-sm font-medium uppercase'> Women</Link>
@@ -29,6 +29,7 @@ const Navbar = () => {
             <Link to="#" className='text-gray-700
              hover:text-black text-sm font-medium uppercase'> bOTTOM Wear</Link>
         </div>
+        {/* Right side icons */}
         <div className="flex items-center space-x-4">
           <Link to="/profile" className='text-gray-700
              hover:text-black text-sm font-medium uppercase'> <HiOutlineUser className='h-6 w-6 text-gray-700'/>
