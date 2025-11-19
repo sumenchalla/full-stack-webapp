@@ -1,23 +1,14 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import  register  from "../assets/register.webp";
-<<<<<<< HEAD
-=======
-
->>>>>>> 784c652e39a7bba4aaf2582ef238750a6183e1c8
 
 const Register = () => {
     const [name, setName] =  useState("");
     const [email, setEmail] =  useState("");
     const [password, setPassword] =  useState("");
     const handleSubmit = (e)=>{
-<<<<<<< HEAD
-      e.preventDefault();
-      console.log("User Registered:", name, email, password)
-=======
         e.preventDefault();
         console.log("User Registered: ",{name,email,password})
->>>>>>> 784c652e39a7bba4aaf2582ef238750a6183e1c8
     }
   return (
     <div className="flex">
@@ -28,21 +19,13 @@ const Register = () => {
                 </div>
                 <h2 className="text-2xl font-bold text-center mg-6">Hey there! </h2>
                 <p className="text-center mb-6">
-<<<<<<< HEAD
-                    Register with your name and email
-=======
                     Enter your username and password to login
->>>>>>> 784c652e39a7bba4aaf2582ef238750a6183e1c8
                 </p>
                 <div className="mb-4">
                     <label htmlFor="" className='block text-sm font-semibold mb-2'>Name</label>
                     <input type="text" value={name} onChange={(e)=> setName(e.target.value)}
                     className='w-full p-2 border rounded'
-<<<<<<< HEAD
-                    placeholder='Enter your name'/>
-=======
                     placeholder='Enter your name '/>
->>>>>>> 784c652e39a7bba4aaf2582ef238750a6183e1c8
                 </div>
                 <div className="mb-4">
                     <label htmlFor="" className='block text-sm font-semibold mb-2'>Email</label>
@@ -57,11 +40,7 @@ const Register = () => {
                     placeholder='Enter your password'/>                
                 </div>
                 <button type='submit' className='w-full bg-black text-white p-2 rounded-lg font-semibold hover:bg-gray-800 transition'>
-<<<<<<< HEAD
-                    Sign In
-=======
                     Sign Up
->>>>>>> 784c652e39a7bba4aaf2582ef238750a6183e1c8
                 </button>
                 <p className='mt-6 text-center text-sm'>
                     Already have an account?
