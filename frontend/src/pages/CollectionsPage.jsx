@@ -1,26 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaFilter } from "react-icons/fa";
 import FilterSidebar from "../components/Products/FilterSidebar";
+import SortOptions from "../components/Products/SortOptions";
+import ProductGrid from "../components/Products/ProductGrid";
 
 const CollectionsPage = () => {
   const [products, setProducts] = useState([]);
   const sideBarRef = useRef(null);
-  const [isSidebarOpen,setIsSidebarOpen] =useState(false);
-  const toggleSidebar =()=>{
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-  const handleClickOutside = (e)=>{
+  const handleClickOutside = (e) => {
     //close side bar if clicked outside
-    if(sideBarRef.current && !sideBarRef.current.contains(e.target)){
-        setIsSidebarOpen(false);
-    };
+    if (sideBarRef.current && !sideBarRef.current.contains(e.target)) {
+      setIsSidebarOpen(false);
+    }
   };
-  useEffect(()=>{
+  useEffect(() => {
     //adding a event lister for clicks
-    document.addEventListener("mousedown",handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     //cleaning the event listner
-    document.removeEventListener("mousedown",handleClickOutside);
+    document.removeEventListener("mousedown", handleClickOutside);
   });
 
   useEffect(() => {
@@ -126,13 +128,34 @@ const CollectionsPage = () => {
   return (
     <div className="flex flex-col lg:flex-row">
       {/* Mobile filter button */}
-      <button onClick={toggleSidebar} className="lg:hidden border p-2 flex justify-center items-center">
-        <FaFilter className="mr-2" />Filters
+      <button
+        onClick={toggleSidebar}
+        className="lg:hidden border p-2 flex justify-center items-center"
+      >
+        <FaFilter className="mr-2" />
+        Filters
       </button>
 
       {/* Filter sidebar */}
-      <div ref={sideBarRef} className={`${isSidebarOpen?"translate-x-0":"-translate-x-full"}`}>
+      <div
+        ref={sideBarRef}
+        className={`${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } 
+        fixed inset-y-0 z-50 left-0 w-64 bg-white overflow-y-auto transition-transform duration-300
+        lg:static lg:translate-x-0`}
+      >
         <FilterSidebar />
+      </div>
+      <div className="flex-grow-0 p-4">
+        <h2 className="text-2xl uppercase mb-4">All Collections</h2>
+
+        {/* Sort Options */}
+        <SortOptions/>
+
+        {/* Products grid */}
+
+        <ProductGrid products={products}/>
       </div>
     </div>
   );
