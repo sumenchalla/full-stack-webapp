@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import CartContent from '../Cart/CartContent'
+import { useNavigate } from "react-router-dom";
 
 const CartDrawer = ({drawerOpen,toggleCartDrawer}) => {
-
+  const navigate = useNavigate();
+  const handleCheckOut = ()=>{
+      navigate("/checkout");
+  };
+  // There are multiple ways to navigate to another page, 
+  // 1. Link tag
+  // useNavigate hook 
   return (
     <div
       className={`fixed top-0 right-0 w-3/4 sm:w-1/2 md:w-120 h-full bg-white shadow-lg
@@ -24,7 +31,7 @@ const CartDrawer = ({drawerOpen,toggleCartDrawer}) => {
         </div>
         {/* Checkout button  fixed at the bottom*/}
         <div className="p-4 bg-white sticky bottom-0">
-            <button className="w-full bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition">Check Out</button>
+            <button onClick={handleCheckOut} className="w-full bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition hover:cursor-pointer">Check Out</button>
             <p className="text-sm tracking-tighter text-gray-500 mt-2">Shipping, taxes, and discount codes are calculated at checkout.</p>
         </div>
     </div>
