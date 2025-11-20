@@ -202,7 +202,7 @@ const FilterSidebar = () => {
       </div>
       {/* Material filter */}
       <div className="mb-6">
-        <label htmlFor="" className='block text-gray-600 font-medium mb-2'>material</label>
+        <label htmlFor="" className='block text-gray-600 font-medium mb-2'>Material</label>
         {materials.map((material)=>(
           <div key={material} className="flex items-center mb-1">
             <input type="checkbox" name="material" 
@@ -217,7 +217,7 @@ const FilterSidebar = () => {
       </div>
       {/* brand filter */}
       <div className="mb-6">
-        <label htmlFor="" className='block text-gray-600 font-medium mb-2'>brand</label>
+        <label htmlFor="" className='block text-gray-600 font-medium mb-2'>Brand</label>
         {brands.map((brand)=>(
           <div key={brand} className="flex items-center mb-1">
             <input type="checkbox" name="brand" 
