@@ -31,7 +31,8 @@ const Navbar = () => {
         </div>
         {/* Right side icons */}
         <div className="flex items-center space-x-4">
-          <Link to="/profile" className='text-gray-700
+          <Link to="/admin" className='block bg-black px-2 py-1 rounded text-sm text-white'>Admin</Link>
+            <Link to="/profile" className='text-gray-700
              hover:text-black text-sm font-medium uppercase'> <HiOutlineUser className='h-6 w-6 text-gray-700'/>
             </Link>
             <button onClick={toggleCartDrawer} className='relative hover:text-black'>
@@ -40,8 +41,8 @@ const Navbar = () => {
             </button>
             <SearchBar/>
             <button className="md:hidden">
-          <HiBars3BottomRight className='h-6 w-6 text-gray-700'/>
-        </button>
+              <HiBars3BottomRight className='h-6 w-6 text-gray-700'/>
+            </button>
         </div>
     </nav>
     <CartDrawer  drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer}/>

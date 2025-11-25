@@ -1,7 +1,7 @@
 import {BrowserRouter,Route, Routes} from 'react-router-dom'
 import './App.css'
 import UserLayout from "./components/Layout/UserLayout"
-import AdminLayout from "./components/Layout/AdminLayout"
+
 import Home from './pages/Home'
 import { Toaster } from 'sonner'
 import Login from './pages/Login'
@@ -13,6 +13,7 @@ import Checkout from './components/Cart/Checkout'
 import OrderConfirmationPage from './pages/OrderConfirmationPage'
 import OrderDetailsPage from './pages/OrderDetailsPage'
 import MyOrderPage from './pages/MyOrderPage'
+import AdminLayout from './components/Admin/AdminLayout.jsx'
 
 function App() {
 
@@ -35,7 +36,9 @@ function App() {
             <Route path='my-orders'  element={<MyOrderPage />}></Route>
           </Route>
           
-          <Route path='/admin'  element={<AdminLayout />}></Route>
+          <Route path='/admin'  element={<AdminLayout />}>
+          
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
