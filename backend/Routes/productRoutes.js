@@ -1,6 +1,8 @@
 const express = require("express");
 const Product = require("../models/Products");
 const { protect, admin } = require("../middleware/authMiddleware");
+const products = require("../data/products");
+const { route } = require("./productRoutes");
 
 
 const router = express.Router();
@@ -224,6 +226,84 @@ router.get("/",async (req,res)=>{
     } catch (error) {
         console.log(error);
         res.status(500).json({message:"Internal server error",error});
+    }
+});
+
+// @route GET /api/products/best-seller
+// @desc Retrive the product with highest rating
+// @access Public
+
+router.get("/best-seller",async(req,res)=>{
+    try {
+        const bestSeller = await Product.findOne().sort({rating:-1});
+        if(bestSeller){
+            res.json(bestSeller);
+        }
+        else{
+            res.status(404).json({message:"No best seller found"});
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send( "Internal server error",error);       
+    }
+});
+
+// @route GET /api/products/new-arrivals
+// @desc Retrive latest 8 products based on creation date
+// @access Public
+router.get("/new-arrivals", async(req,res)=>{
+    try {
+        // fetch the latest 8 products
+        const newArrivals = (await Product.find()).sort({createdAt:-1}).limit(8);
+        res.json(newArrivals);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send( "Internal server error",error);        
+    }
+})
+
+// @route GET /api/products/:id
+// @desc retrive a single product details by its id
+// @access Public
+
+router.get("/:id", async(req,res)=>{
+    try {
+        const product = await Product.findById(req.params.id);
+
+        if(product){
+            res.json(product);
+        }
+        else{
+            res.status(404).json({message:"Product not found"});
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send( "Internal server error",error);
+    }
+});
+
+// @route GET /api/products/similar/:id
+// @desc Retrive similar productrs based on curent products gender and category
+// @access Public
+
+router.get("/similar/:id", async(req,res)=>{
+    const {id} = req.params;
+    try {
+        const product = await Product.findnyId(id)
+
+        if(!product){
+            return res.status(404).json({message:"Product not found"})
+        }   
+        const similarProducts = await Product.find({
+            _id :{$ne : id}, // Excluding this current product ID
+            gender : product.gender,
+            category : product.category
+        }).limit(4);  
+        
+        res.json(similarProducts);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error", error);
     }
 });
 
