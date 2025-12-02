@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 // const userRoutes = require("./routes/userRoutes");
 const userRoutes = require("./Routes/userRoutes");
+const productRoutes = require("./Routes/productRoutes");
 
 const app = express();
 app.use(express.json());
@@ -19,11 +20,15 @@ connectDB();
 
 
 app.get("/",(req,res)=>{
-    res.send("Welocme to rabbit API")
+    res.send("Welocme to rabbit API");
 })
 
-// API Routes
-app.use("/api/users",userRoutes)
+// API User Routes
+app.use("/api/users",userRoutes);
+
+// API Products Routes
+app.use("/api/products",productRoutes);
+
 
 app.listen(PORT,()=>{
     console.log(`Server is runnning on http://localhost:${PORT}`);
