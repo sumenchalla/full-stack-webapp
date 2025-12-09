@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 // const userRoutes = require("./routes/userRoutes");
 const userRoutes = require("./Routes/userRoutes");
 const productRoutes = require("./Routes/productRoutes");
+const cartRoutes = require("./Routes/cartRoutes");
 
 const app = express();
 app.use(express.json());
@@ -28,6 +29,9 @@ app.use("/api/users",userRoutes);
 
 // API Products Routes
 app.use("/api/products",productRoutes);
+
+// API cart Routes
+app.use("/api/cart",cartRoutes);
 
 
 app.listen(PORT,()=>{
