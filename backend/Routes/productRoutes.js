@@ -2,6 +2,7 @@ const express = require("express");
 const Product = require("../models/Products");
 const { protect, admin } = require("../middleware/authMiddleware");
 const products = require("../data/products");
+const Products = require("../models/Products");
 
 
 const router = express.Router();
@@ -253,7 +254,7 @@ router.get("/best-seller",async(req,res)=>{
 router.get("/new-arrivals", async(req,res)=>{
     try {
         // fetch the latest 8 products
-        const newArrivals = (await Product.find()).sort({createdAt:-1}).limit(8);
+        const newArrivals = await Product.find().sort({createdAt:-1}).limit(8);
         res.json(newArrivals);
     } catch (error) {
         console.error(error);
