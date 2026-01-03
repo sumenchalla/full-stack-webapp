@@ -289,7 +289,7 @@ router.get("/:id", async(req,res)=>{
 router.get("/similar/:id", async(req,res)=>{
     const {id} = req.params;
     try {
-        const product = await Product.findnyId(id)
+        const product = await Product.findById(id)
 
         if(!product){
             return res.status(404).json({message:"Product not found"})

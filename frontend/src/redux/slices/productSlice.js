@@ -27,7 +27,7 @@ export const fetchProductsByFilters = createAsyncThunk("products/fetchByFilters"
 
 
 // Async Thunk to fecth a single product by ID
-export const fetchProductDetails = createAsyncThunk("products/fecthProductsDetails",async(id)=>{
+export const fetchProductDetails = createAsyncThunk("products/fecthProductsDetails",async(id)=>{ 
             const response = await axios.get(
             `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`);
 
@@ -63,7 +63,7 @@ const productSlice = createSlice({
     name: "products",
     initialState : {
         products : [],
-        selectedProduct : null ,  // Stores the details of single product
+        selectedProducts : null ,  // Stores the details of single product
         similarProducts : [],
         loading:false,
         error:null,
@@ -127,7 +127,7 @@ const productSlice = createSlice({
         })
         .addCase(fetchProductDetails.fulfilled , (state,action)=>{
             state.loading = false;
-            state.selectedProduct =  action.payload ;
+            state.selectedProducts =  action.payload ;
         })
         .addCase(fetchProductDetails.rejected, (state,action)=>{
             state.loading = false;

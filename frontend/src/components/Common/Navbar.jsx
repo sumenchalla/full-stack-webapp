@@ -3,11 +3,16 @@ import { Link } from 'react-router-dom'
 import {HiOutlineUser,HiOutlineShoppingBag, HiBars3BottomRight} from "react-icons/hi2"
 import SearchBar from './SearchBar'
 import CartDrawer from '../Layout/CartDrawer'
+import MobileMenu from '../Layout/MobileMenu' 
 
 const Navbar = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
   const toggleCartDrawer = () => {
     setDrawerOpen(!drawerOpen);
+  };
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
   return (
     <>
@@ -20,14 +25,14 @@ const Navbar = () => {
         </div>
         {/** Ceneter Navigation Links */}
         <div className="hidden md:flex space-x-6">
-            <Link to="collections/all" className='text-gray-700
+            <Link to="collections/all?gender=Men" className='text-gray-700
              hover:text-black text-sm font-medium uppercase'> Men</Link>
-            <Link to="#" className='text-gray-700
+            <Link to="collections/all?gender=Women" className='text-gray-700
              hover:text-black text-sm font-medium uppercase'> Women</Link>
-            <Link to="#" className='text-gray-700
+            <Link to="collections/all?category=Top Wear" className='text-gray-700
              hover:text-black text-sm font-medium uppercase'> Top Wear</Link>
-            <Link to="#" className='text-gray-700
-             hover:text-black text-sm font-medium uppercase'> bOTTOM Wear</Link>
+            <Link to="collections/all?category=Bottom Wear" className='text-gray-700
+             hover:text-black text-sm font-medium uppercase'> Bottom Wear</Link>
         </div>
         {/* Right side icons */}
         <div className="flex items-center space-x-4">
@@ -40,12 +45,13 @@ const Navbar = () => {
               <span className='absolute -top-1 bg-[#ea2e0e] text-white text-xs rounded-full px-2 py-0.5'>4</span>
             </button>
             <SearchBar/>
-            <button className="md:hidden">
+            <button className="md:hidden" onClick={toggleMenu} aria-label="Open menu">
               <HiBars3BottomRight className='h-6 w-6 text-gray-700'/>
-            </button>
+            </button> 
         </div>
     </nav>
     <CartDrawer  drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer}/>
+    <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
     
     </>
   )
